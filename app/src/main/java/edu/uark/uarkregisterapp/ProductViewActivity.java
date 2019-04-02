@@ -23,15 +23,18 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
-public class ProductViewActivity extends AppCompatActivity {
+public class ProductViewActivity extends AppCompatActivity
+{
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_product_view);
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 		ActionBar actionBar = this.getSupportActionBar();
-		if (actionBar != null) {
+		if (actionBar != null)
+		{
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
@@ -39,8 +42,10 @@ public class ProductViewActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
 			case android.R.id.home:  // Respond to the action bar's Up/Home button
 				this.finish();
 
@@ -51,12 +56,16 @@ public class ProductViewActivity extends AppCompatActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
 
-		if (!this.productTransition.getId().equals(new UUID(0, 0))) {
+		if (!this.productTransition.getId().equals(new UUID(0, 0)))
+		{
 			this.getDeleteImageButton().setVisibility(View.VISIBLE);
-		} else {
+		}
+		else
+		{
 			this.getDeleteImageButton().setVisibility(View.INVISIBLE);
 		}
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
@@ -66,15 +75,18 @@ public class ProductViewActivity extends AppCompatActivity {
 		);
 	}
 
-	public void saveButtonOnClick(View view) {
-		if (!this.validateInput()) {
+	public void saveButtonOnClick(View view)
+	{
+		if (!this.validateInput())
+		{
 			return;
 		}
 
 		(new SaveProductTask()).execute();
 	}
 
-	public void deleteButtonOnClick(View view) {
+	public void deleteButtonOnClick(View view)
+	{
 		new AlertDialog.Builder(this).
 			setMessage(R.string.alert_dialog_product_delete_confirm).
 			setPositiveButton(
@@ -113,31 +125,39 @@ public class ProductViewActivity extends AppCompatActivity {
 		return (ImageButton) this.findViewById(R.id.button_activity_edit_delete);
 	}
 
-	private boolean validateInput() {
+	private boolean validateInput()
+	{
 		boolean inputIsValid = true;
 		String validationMessage = StringUtils.EMPTY;
 
-		if (StringUtils.isBlank(this.getProductLookupCodeEditText().getText().toString())) {
+		if (StringUtils.isBlank(this.getProductLookupCodeEditText().getText().toString()))
+		{
 			validationMessage = this.getString(R.string.validation_product_lookup_code);
 			inputIsValid = false;
 		}
 
-		if (!inputIsValid && StringUtils.isBlank(this.getProductCountEditText().getText().toString())) {
+		if (!inputIsValid && StringUtils.isBlank(this.getProductCountEditText().getText().toString()))
+		{
 			validationMessage = this.getString(R.string.validation_product_count);
 			inputIsValid = false;
 		}
 
-		try {
-			if (Integer.parseInt(this.getProductCountEditText().getText().toString()) < 0) {
+		try
+		{
+			if (Integer.parseInt(this.getProductCountEditText().getText().toString()) < 0)
+			{
 				validationMessage = this.getString(R.string.validation_product_count);
 				inputIsValid = false;
 			}
-		} catch (NumberFormatException nfe) {
+		}
+		catch (NumberFormatException nfe)
+		{
 			validationMessage = this.getString(R.string.validation_product_count);
 			inputIsValid = false;
 		}
 
-		if (!inputIsValid) {
+		if (!inputIsValid)
+		{
 			new AlertDialog.Builder(this).
 				setMessage(validationMessage).
 				setPositiveButton(
@@ -162,7 +182,8 @@ public class ProductViewActivity extends AppCompatActivity {
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params)
+		{
 			Product product = (new Product()).
 				setId(productTransition.getId()).
 				setLookupCode(getProductLookupCodeEditText().getText().toString()).
@@ -183,14 +204,18 @@ public class ProductViewActivity extends AppCompatActivity {
 		}
 
 		@Override
-		protected void onPostExecute(Boolean successfulSave) {
+		protected void onPostExecute(Boolean successfulSave)
+		{
 			String message;
 
 			savingProductAlert.dismiss();
 
-			if (successfulSave) {
+			if (successfulSave)
+			{
 				message = getString(R.string.alert_dialog_product_save_success);
-			} else {
+			}
+			else
+			{
 				message = getString(R.string.alert_dialog_product_save_failure);
 			}
 
@@ -210,35 +235,42 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		private AlertDialog savingProductAlert;
 
-		private SaveProductTask() {
+		private SaveProductTask()
+		{
 			this.savingProductAlert = new AlertDialog.Builder(ProductViewActivity.this).
 				setMessage(R.string.alert_dialog_product_save).
 				create();
 		}
 	}
 
-	private class DeleteProductTask extends AsyncTask<Void, Void, Boolean> {
+	private class DeleteProductTask extends AsyncTask<Void, Void, Boolean>
+	{
 		@Override
 		protected void onPreExecute() {
 			this.deletingProductAlert.show();
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params)
+		{
 			return (new ProductService())
 				.deleteProduct(productTransition.getId())
 				.isValidResponse();
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean successfulSave) {
+		protected void onPostExecute(final Boolean successfulSave)
+		{
 			String message;
 
 			deletingProductAlert.dismiss();
 
-			if (successfulSave) {
+			if (successfulSave)
+			{
 				message = getString(R.string.alert_dialog_product_delete_success);
-			} else {
+			}
+			else
+			{
 				message = getString(R.string.alert_dialog_product_delete_failure);
 			}
 
@@ -249,7 +281,8 @@ public class ProductViewActivity extends AppCompatActivity {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							dialog.dismiss();
-							if (successfulSave) {
+							if (successfulSave)
+							{
 								finish();
 							}
 						}
@@ -261,7 +294,8 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		private AlertDialog deletingProductAlert;
 
-		private DeleteProductTask() {
+		private DeleteProductTask()
+		{
 			this.deletingProductAlert = new AlertDialog.Builder(ProductViewActivity.this).
 				setMessage(R.string.alert_dialog_product_delete).
 				create();

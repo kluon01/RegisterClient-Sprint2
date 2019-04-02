@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -22,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 
         this.getEmployeeWelcomeTextView().setText("Welcome " + this.employeeTransition.getFirstName() + " (" + this.employeeTransition.getEmployeeId() + ")!");
@@ -52,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         return (TextView)this.findViewById(R.id.text_view_employee_welcome);
     }
 
-    private void displayFunctionalityNotAvailableDialog() {
+    private void displayFunctionalityNotAvailableDialog()
+    {
         new AlertDialog.Builder(this).
                 setMessage(R.string.alert_dialog_functionality_not_available).
                 setPositiveButton(

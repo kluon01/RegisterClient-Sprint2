@@ -19,23 +19,27 @@ import edu.uark.uarkregisterapp.models.api.enums.EmployeeClassification;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-public class CreateEmployeeActivity extends AppCompatActivity {
-
+public class CreateEmployeeActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_employee);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
+        if (actionBar != null)
+        {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:  // Respond to the action bar's Up/Home button
                 this.finish();
                 return true;
@@ -44,11 +48,12 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveButtonOnClick(View view) {
-        if (!this.validateInput()) {
+    public void saveButtonOnClick(View view)
+    {
+        if (!this.validateInput())
+        {
             return;
         }
-
         (new CreateEmployeeTask()).execute(
             (new Employee())
                 .setActive(true)
@@ -75,25 +80,30 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         return (EditText) this.findViewById(R.id.edit_text_employee_create_password_confirm);
     }
 
-    private boolean validateInput() {
+    private boolean validateInput()
+    {
         boolean validInput = true;
 
-        if (StringUtils.isBlank(this.getFirstNameEditText().getText().toString())) {
+        if (StringUtils.isBlank(this.getFirstNameEditText().getText().toString()))
+        {
             this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_first_name);
             this.getFirstNameEditText().requestFocus();
             validInput = false;
         }
-        if (validInput && StringUtils.isBlank(this.getLastNameEditText().getText().toString())) {
+        if (validInput && StringUtils.isBlank(this.getLastNameEditText().getText().toString()))
+        {
             this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_last_name);
             this.getLastNameEditText().requestFocus();
             validInput = false;
         }
-        if (validInput && StringUtils.isBlank(this.getPasswordEditText().getText().toString())) {
+        if (validInput && StringUtils.isBlank(this.getPasswordEditText().getText().toString()))
+        {
             this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_password);
             this.getLastNameEditText().requestFocus();
             validInput = false;
         }
-        if (validInput && !this.getPasswordEditText().getText().toString().equals(this.getPasswordConfirmEditText().getText().toString())) {
+        if (validInput && !this.getPasswordEditText().getText().toString().equals(this.getPasswordConfirmEditText().getText().toString()))
+        {
             this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_password_invalid);
             this.getLastNameEditText().requestFocus();
             validInput = false;
@@ -102,16 +112,19 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         return validInput;
     }
 
-    private void displayValidationAlert(int stringId) {
+    private void displayValidationAlert(int stringId)
+    {
         new AlertDialog.Builder(this)
             .setMessage(stringId)
             .create()
             .show();
     }
 
-    private class CreateEmployeeTask extends AsyncTask<Employee, Void, ApiResponse<Employee>> {
+    private class CreateEmployeeTask extends AsyncTask<Employee, Void, ApiResponse<Employee>>
+    {
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeActivity.this)
                 .setMessage(R.string.alert_dialog_employee_create)
                 .create();
@@ -119,20 +132,26 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ApiResponse<Employee> doInBackground(Employee... employees) {
-            if (employees.length > 0) {
+        protected ApiResponse<Employee> doInBackground(Employee... employees)
+        {
+            if (employees.length > 0)
+            {
                 return (new EmployeeService()).createEmployee(employees[0]);
-            } else {
+            }
+            else
+            {
                 return (new ApiResponse<Employee>())
                     .setValidResponse(false);
             }
         }
 
         @Override
-        protected void onPostExecute(ApiResponse<Employee> apiResponse) {
+        protected void onPostExecute(ApiResponse<Employee> apiResponse)
+        {
             this.createEmployeeAlert.dismiss();
 
-            if (!apiResponse.isValidResponse()) {
+            if (!apiResponse.isValidResponse())
+            {
                 new AlertDialog.Builder(CreateEmployeeActivity.this)
                     .setMessage(R.string.alert_dialog_employee_create_failed)
                     .create()

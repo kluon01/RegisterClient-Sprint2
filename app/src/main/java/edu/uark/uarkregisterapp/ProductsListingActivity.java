@@ -21,15 +21,18 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
-public class ProductsListingActivity extends AppCompatActivity {
+public class ProductsListingActivity extends AppCompatActivity
+{
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_products_listing);
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 		ActionBar actionBar = this.getSupportActionBar();
-		if (actionBar != null) {
+		if (actionBar != null)
+		{
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
@@ -53,7 +56,8 @@ public class ProductsListingActivity extends AppCompatActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
 
 		(new RetrieveProductsTask()).execute();
@@ -63,17 +67,20 @@ public class ProductsListingActivity extends AppCompatActivity {
 		return (ListView) this.findViewById(R.id.list_view_products);
 	}
 
-	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
+	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>>
+	{
 		@Override
 		protected void onPreExecute() {
 			this.loadingProductsAlert.show();
 		}
 
 		@Override
-		protected ApiResponse<List<Product>> doInBackground(Void... params) {
+		protected ApiResponse<List<Product>> doInBackground(Void... params)
+		{
 			ApiResponse<List<Product>> apiResponse = (new ProductService()).getProducts();
 
-			if (apiResponse.isValidResponse()) {
+			if (apiResponse.isValidResponse())
+			{
 				products.clear();
 				products.addAll(apiResponse.getData());
 			}
@@ -82,14 +89,17 @@ public class ProductsListingActivity extends AppCompatActivity {
 		}
 
 		@Override
-		protected void onPostExecute(ApiResponse<List<Product>> apiResponse) {
-			if (apiResponse.isValidResponse()) {
+		protected void onPostExecute(ApiResponse<List<Product>> apiResponse)
+		{
+			if (apiResponse.isValidResponse())
+			{
 				productListAdapter.notifyDataSetChanged();
 			}
 
 			this.loadingProductsAlert.dismiss();
 
-			if (!apiResponse.isValidResponse()) {
+			if (!apiResponse.isValidResponse())
+			{
 				new AlertDialog.Builder(ProductsListingActivity.this).
 					setMessage(R.string.alert_dialog_products_load_failure).
 					setPositiveButton(

@@ -17,23 +17,27 @@ import edu.uark.uarkregisterapp.models.api.EmployeeSignIn;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-public class LandingActivity extends AppCompatActivity {
-
+public class LandingActivity extends AppCompatActivity
+{
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_landing);
 	}
 
 	@Override
-	protected void onStart() {
+	protected void onStart()
+	{
 		super.onStart();
 
 		(new QueryActiveEmployeeExistsTask()).execute();
 	}
 
-	public void signInButtonOnClick(View view) {
-		if (StringUtils.isBlank(this.getEmployeeIdEditText().getText().toString())) {
+	public void signInButtonOnClick(View view)
+	{
+		if (StringUtils.isBlank(this.getEmployeeIdEditText().getText().toString()))
+		{
 			new AlertDialog.Builder(this)
 				.setMessage(R.string.alert_dialog_employee_id_empty)
 				.create()
@@ -43,7 +47,8 @@ public class LandingActivity extends AppCompatActivity {
 			return;
 		}
 
-		if (StringUtils.isBlank(this.getPasswordEditText().getText().toString())) {
+		if (StringUtils.isBlank(this.getPasswordEditText().getText().toString()))
+		{
 			new AlertDialog.Builder(this)
 				.setMessage(R.string.alert_dialog_employee_password_empty)
 				.create()
@@ -68,15 +73,19 @@ public class LandingActivity extends AppCompatActivity {
 		return (EditText) this.findViewById(R.id.edit_text_password);
 	}
 
-	private class QueryActiveEmployeeExistsTask extends AsyncTask<Void, Void, ApiResponse<Boolean>> {
+	private class QueryActiveEmployeeExistsTask extends AsyncTask<Void, Void, ApiResponse<Boolean>>
+	{
 		@Override
-		protected ApiResponse<Boolean> doInBackground(Void... params) {
+		protected ApiResponse<Boolean> doInBackground(Void... params)
+		{
 			return (new EmployeeService()).getActiveEmployeeExists();
 		}
 
 		@Override
-		protected void onPostExecute(ApiResponse<Boolean> apiResponse) {
-			if (apiResponse.isValidResponse() && apiResponse.getData()) {
+		protected void onPostExecute(ApiResponse<Boolean> apiResponse)
+		{
+			if (apiResponse.isValidResponse() && apiResponse.getData())
+			{
 				return;
 			}
 
@@ -97,9 +106,11 @@ public class LandingActivity extends AppCompatActivity {
 		}
 	}
 
-	private class SignInTask extends AsyncTask<EmployeeSignIn, Void, ApiResponse<Employee>> {
+	private class SignInTask extends AsyncTask<EmployeeSignIn, Void, ApiResponse<Employee>>
+	{
 		@Override
-		protected void onPreExecute() {
+		protected void onPreExecute()
+		{
 			this.signInAlert = new AlertDialog.Builder(LandingActivity.this)
 				.setMessage(R.string.alert_dialog_signing_in)
 				.create();
@@ -107,20 +118,26 @@ public class LandingActivity extends AppCompatActivity {
 		}
 
 		@Override
-		protected ApiResponse<Employee> doInBackground(EmployeeSignIn... employeeSignIns) {
-			if (employeeSignIns.length > 0) {
+		protected ApiResponse<Employee> doInBackground(EmployeeSignIn... employeeSignIns)
+		{
+			if (employeeSignIns.length > 0)
+			{
 				return (new EmployeeService()).signIn(employeeSignIns[0]);
-			} else {
+			}
+			else
+			{
 				return (new ApiResponse<Employee>())
 					.setValidResponse(false);
 			}
 		}
 
 		@Override
-		protected void onPostExecute(ApiResponse<Employee> apiResponse) {
+		protected void onPostExecute(ApiResponse<Employee> apiResponse)
+		{
 			this.signInAlert.dismiss();
 
-			if (!apiResponse.isValidResponse()) {
+			if (!apiResponse.isValidResponse())
+			{
 				new AlertDialog.Builder(LandingActivity.this)
 					.setMessage(R.string.alert_dialog_employee_sign_in_failed)
 					.create()
