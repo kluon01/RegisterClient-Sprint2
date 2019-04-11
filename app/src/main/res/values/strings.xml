@@ -15,6 +15,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
     <string name="button_create_product">Create Product</string>
+    <string name="button_shopping_cart_complete_transaction">Complete Transaction</string>
     <string name="text_view_landing_welcome">UARK Register App</string>
     <string name="text_view_please_sign_in">Please Sign In</string>
     <string name="text_view_products_lookup_code">LookupCode</string>
@@ -25,6 +26,8 @@
     <string name="text_view_label_products_lookup_code">Lookup Code:</string>
     <string name="text_view_label_products_count">Count:</string>
     <string name="text_view_label_products_created_on">Created On:</string>
+    <string name="text_view_label_shopping_cart_lookup_code">Lookup Code:</string>
+    <string name="text_view_label_shopping_cart_total">Total: $</string>
     <string name="edit_text_hint_employee_create_first_name">First name</string>
     <string name="edit_text_hint_employee_create_last_name">Last name</string>
     <string name="edit_text_hint_employee_create_password">Password</string>
