@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     public void cashierSalesReportButtonOnClick(View view) {
         this.displayFunctionalityNotAvailableDialog();
     }
-
+    // Branch testing
     public void createEmployeeButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
     }
