@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void beginTransactionButtonOnClick(View view) {
-        //this.displayFunctionalityNotAvailableDialog();
-        this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+        this.displayFunctionalityNotAvailableDialog();
     }
 
     public void productSalesReportButtonOnClick(View view) {
@@ -43,10 +42,9 @@ public class MainActivity extends AppCompatActivity
     public void cashierSalesReportButtonOnClick(View view) {
         this.displayFunctionalityNotAvailableDialog();
     }
-    // Branch testing2
+
     public void createEmployeeButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
-    }
+        this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));    }
 
     public void logOutButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), LandingActivity.class));
