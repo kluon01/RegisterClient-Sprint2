@@ -37,11 +37,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void productSalesReportButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        //this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), TopProductsActivity.class));
+
     }
 
     public void cashierSalesReportButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+       // this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), TopEmployees.class));
+
     }
     // Branch testing2
     public void createEmployeeButtonOnClick(View view) {
