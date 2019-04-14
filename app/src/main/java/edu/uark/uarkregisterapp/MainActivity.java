@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void beginTransactionButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        //this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
     }
 
     public void productSalesReportButtonOnClick(View view) {

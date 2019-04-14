@@ -160,7 +160,6 @@ public class CreateEmployeeActivity extends AppCompatActivity
             }
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
             intent.putExtra(
                 getString(R.string.intent_extra_employee)
                 , new EmployeeTransition(apiResponse.getData())
