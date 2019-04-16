@@ -71,7 +71,7 @@ public class TopEmployees extends AppCompatActivity
     {
         @Override
         protected void onPreExecute() {
-            this.loadingProductsAlert.show();
+            this.loadingEmployeesAlert.show();
         }
 
         @Override
@@ -96,7 +96,7 @@ public class TopEmployees extends AppCompatActivity
                 employeeListAdapter.notifyDataSetChanged();
             }
 
-            this.loadingProductsAlert.dismiss();
+            this.loadingEmployeesAlert.dismiss();
 
             if (!apiResponse.isValidResponse())
             {
@@ -115,10 +115,10 @@ public class TopEmployees extends AppCompatActivity
             }
         }
 
-        private AlertDialog loadingProductsAlert;
+        private AlertDialog loadingEmployeesAlert;
 
         private RetrieveEmployeesTask() {
-            this.loadingProductsAlert = new AlertDialog.Builder(TopEmployees.this).
+            this.loadingEmployeesAlert = new AlertDialog.Builder(TopEmployees.this).
                     setMessage(R.string.alert_dialog_employees_loading).
                     create();
         }
