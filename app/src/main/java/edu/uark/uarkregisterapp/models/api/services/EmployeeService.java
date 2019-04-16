@@ -66,13 +66,28 @@ public class EmployeeService extends BaseRemoteService {
 		return apiResponse;
 	}
 
-	public ApiResponse<Employee> updateEmployee(Employee employee) {
-		return this.readEmployeeDetailsFromResponse(
-			this.<Employee>performPutRequest(
-				this.buildPath(employee.getId()),
-				employee.convertToJson()
-			)
+	public ApiResponse<List<Employee>> getEmployeesByHighestSales() {
+		ApiResponse<List<Employee>> apiResponse = this.performGetRequest(
+				this.buildPath(new PathElementInterface[]{ EmployeeApiMethod.BY_HIGHEST_SALES})
 		);
+
+		JSONArray rawJsonArray = this.rawResponseToJSONArray(apiResponse.getRawResponse());
+		if (rawJsonArray != null) {
+			ArrayList<Employee> employees = new ArrayList<>(rawJsonArray.length());
+			for (int i = 0; i < rawJsonArray.length(); i++) {
+				try {
+					employees.add((new Employee()).loadFromJson(rawJsonArray.getJSONObject(i)));
+				} catch (JSONException e) {
+					Log.d("GET EMPLOYEES", e.getMessage());
+				}
+			}
+
+			apiResponse.setData(employees);
+		} else {
+			apiResponse.setData(new ArrayList<Employee>(0));
+		}
+
+		return apiResponse;
 	}
 
 	public ApiResponse<Employee> createEmployee(Employee employee) {

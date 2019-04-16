@@ -97,11 +97,11 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         return this;
     }
 
-    private String sales;
-    public String getSales() {
+    private int sales;
+    public int getSales() {
         return this.sales;
     }
-    public Employee setSales(String sales) {
+    public Employee setSales(int sales) {
         this.sales = sales;
         return this;
     }
@@ -134,7 +134,7 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
             }
         }
 
-        this.sales = rawJsonObject.optString(EmployeeFieldName.SALES.getFieldName());
+        this.sales = rawJsonObject.optInt(EmployeeFieldName.SALES.getFieldName());
 
 
         return this;
@@ -172,7 +172,8 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         this.password = StringUtils.EMPTY;
         this.firstName = StringUtils.EMPTY;
         this.employeeId = StringUtils.EMPTY;
-        this.sales = StringUtils.EMPTY;
         this.classification = EmployeeClassification.NOT_DEFINED;
+        this.sales = -1;
+
     }
 }
