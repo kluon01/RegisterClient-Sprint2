@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void productSalesReportButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), TopProductsActivity.class));
     }
 
     public void cashierSalesReportButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), TopEmployees.class));
     }
 
     public void createEmployeeButtonOnClick(View view) {

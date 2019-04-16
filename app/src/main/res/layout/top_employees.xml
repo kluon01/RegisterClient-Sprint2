@@ -17,7 +17,7 @@
         android:textSize="24sp" />
 
     <ListView
-        android:id="@+id/list_view_products"
+        android:id="@+id/list_view_employees"
         android:layout_width="377dp"
         android:layout_height="581dp"
         android:layout_alignParentStart="true"

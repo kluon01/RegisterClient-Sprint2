@@ -11,7 +11,8 @@ public enum EmployeeFieldName implements FieldNameInterface {
     ACTIVE("active"),
     CLASSIFICATION("classification"),
     MANAGER_ID("managerId"),
-    CREATED_ON("createdOn");
+    CREATED_ON("createdOn"),
+    SALES("sales");
 
     private String fieldName;
     public String getFieldName() {
