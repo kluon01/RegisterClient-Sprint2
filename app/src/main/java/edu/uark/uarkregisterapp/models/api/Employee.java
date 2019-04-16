@@ -97,6 +97,14 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         return this;
     }
 
+    private String sales;
+    public String getSales() {
+        return this.sales;
+    }
+    public Employee setSales(String sales) {
+        this.sales = sales;
+        return this;
+    }
     @Override
     public Employee loadFromJson(JSONObject rawJsonObject) {
         String value = rawJsonObject.optString(EmployeeFieldName.ID.getFieldName());
@@ -126,6 +134,9 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
             }
         }
 
+        this.sales = rawJsonObject.optString(EmployeeFieldName.SALES.getFieldName());
+
+
         return this;
     }
 
@@ -143,6 +154,8 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
             jsonObject.put(EmployeeFieldName.CLASSIFICATION.getFieldName(), this.classification.getValue());
             jsonObject.put(EmployeeFieldName.MANAGER_ID.getFieldName(), this.managerId.toString());
             jsonObject.put(EmployeeFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
+            jsonObject.put(EmployeeFieldName.SALES.getFieldName(), this.sales);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -159,6 +172,7 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         this.password = StringUtils.EMPTY;
         this.firstName = StringUtils.EMPTY;
         this.employeeId = StringUtils.EMPTY;
+        this.sales = StringUtils.EMPTY;
         this.classification = EmployeeClassification.NOT_DEFINED;
     }
 }

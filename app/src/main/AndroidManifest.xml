@@ -39,6 +39,14 @@
             android:label="@string/title_activity_create_employee"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".TopEmployees"
+            android:label="@string/title_activity_top_employees"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".TopProductsActivity"
+            android:label="@string/title_activity_top_products"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme.NoActionBar" />
