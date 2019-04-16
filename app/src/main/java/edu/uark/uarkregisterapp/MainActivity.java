@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity
         this.startActivity(new Intent(getApplicationContext(), LandingActivity.class));
     }
 
+    public void testButtonOnClick(View view) {
+        this.startActivity(new Intent(getApplicationContext(), TestActivity.class));
+    }
+
     private TextView getEmployeeWelcomeTextView() {
         return (TextView)this.findViewById(R.id.text_view_employee_welcome);
     }

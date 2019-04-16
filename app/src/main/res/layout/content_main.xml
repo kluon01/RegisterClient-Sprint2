@@ -71,4 +71,15 @@
     android:text="@string/button_log_out"
     android:onClick="logOutButtonOnClick"/>
 
+<Button
+    android:id="@+id/button_test"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/button_log_out"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="100dp"
+    android:text="Test Page"
+    android:onClick="testButtonOnClick"/>
+
+
 </RelativeLayout>
