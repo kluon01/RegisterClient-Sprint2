@@ -60,6 +60,31 @@ public class ProductService extends BaseRemoteService {
 		return apiResponse;
 	}
 
+	public ApiResponse<List<Product>> getProductWithHighestSold()
+	{
+		ApiResponse<List<Product>> apiResponse = this.performGetRequest(
+				this.buildPath(new PathElementInterface[] { ProductApiMethod.BY_HIGHEST_SOLD })
+		);
+
+		JSONArray rawJsonArray = this.rawResponseToJSONArray(apiResponse.getRawResponse());
+		if (rawJsonArray != null) {
+			ArrayList<Product> products = new ArrayList<>(rawJsonArray.length());
+			for (int i = 0; i < rawJsonArray.length(); i++) {
+				try {
+					products.add((new Product()).loadFromJson(rawJsonArray.getJSONObject(i)));
+				} catch (JSONException e) {
+					Log.d("GET PRODUCTS MOST SOLD", e.getMessage());
+				}
+			}
+
+			apiResponse.setData(products);
+		} else {
+			apiResponse.setData(new ArrayList<Product>(0));
+		}
+
+		return apiResponse;
+	}
+
 	public ApiResponse<Product> updateProduct(Product product) {
 		return this.readProductDetailsFromResponse(
 			this.<Product>performPutRequest(
