@@ -93,7 +93,18 @@ public class EmployeeTransition implements Parcelable {
     public EmployeeTransition setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
         return this;
+
     }
+
+    private int sales;
+    public int getEmployeeSales() {
+        return this.sales;
+    }
+    public EmployeeTransition setEmployeeSales(int sales) {
+        this.sales = sales;
+        return this;
+    }
+
     @Override
     public void writeToParcel(Parcel destination, int flags) {
         destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
@@ -105,6 +116,8 @@ public class EmployeeTransition implements Parcelable {
         destination.writeInt(this.classification.getValue());
         destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.managerId).execute());
         destination.writeLong(this.createdOn.getTime());
+        destination.writeInt(this.sales);
+
     }
 
     @Override
@@ -132,6 +145,8 @@ public class EmployeeTransition implements Parcelable {
         this.firstName = StringUtils.EMPTY;
         this.employeeId = StringUtils.EMPTY;
         this.classification = EmployeeClassification.NOT_DEFINED;
+        this.sales = -1;
+
     }
 
     public EmployeeTransition(Employee employee) {
@@ -144,7 +159,8 @@ public class EmployeeTransition implements Parcelable {
         this.managerId = employee.getManagerId();
         this.employeeId = employee.getEmployeeId();
         this.classification = employee.getClassification();
-    }
+        this.sales = employee.getSales();
+        }
 
     public EmployeeTransition(Parcel employeeTransitionParcel) {
         this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(employeeTransitionParcel.createByteArray()).execute();
@@ -158,5 +174,7 @@ public class EmployeeTransition implements Parcelable {
 
         this.createdOn = new Date();
         this.createdOn.setTime(employeeTransitionParcel.readLong());
+        this.sales = employeeTransitionParcel.readInt();
+
     }
 }
