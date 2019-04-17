@@ -23,27 +23,30 @@ import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
 public class TopEmployees extends AppCompatActivity
 {
+    private List<Employee> employees;
+    private EmployeeListAdapter topEmployeeListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_employees);
+        setContentView(R.layout.top_employees);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null)
         {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         this.employees = new ArrayList<>();
-        this.employeeListAdapter = new EmployeeListAdapter(this, this.employees);
+        this.topEmployeeListAdapter = new EmployeeListAdapter(this, this.employees);
 
-        this.getEmployeesListView().setAdapter(this.employeeListAdapter);
+        this.getEmployeesListView().setAdapter(this.topEmployeeListAdapter);
         this.getEmployeesListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TopProductsViewActivity.class);
 
                 intent.putExtra(
                         getString(R.string.intent_extra_product),
@@ -63,7 +66,8 @@ public class TopEmployees extends AppCompatActivity
         (new RetrieveEmployeesTask()).execute();
     }
 
-    private ListView getEmployeesListView() {
+    private ListView getEmployeesListView()
+    {
         return (ListView) this.findViewById(R.id.list_view_employees);
     }
 
@@ -71,13 +75,13 @@ public class TopEmployees extends AppCompatActivity
     {
         @Override
         protected void onPreExecute() {
-            this.loadingEmployeesAlert.show();
+            this.loadingProductsAlert.show();
         }
 
         @Override
         protected ApiResponse<List<Employee>> doInBackground(Void... params)
         {
-            ApiResponse<List<Employee>> apiResponse = (new EmployeeService()).getEmployees();
+            ApiResponse<List<Employee>> apiResponse = (new EmployeeService()).getEmployeesByHighestSales();
 
             if (apiResponse.isValidResponse())
             {
@@ -93,10 +97,10 @@ public class TopEmployees extends AppCompatActivity
         {
             if (apiResponse.isValidResponse())
             {
-                employeeListAdapter.notifyDataSetChanged();
+                topEmployeeListAdapter.notifyDataSetChanged();
             }
 
-            this.loadingEmployeesAlert.dismiss();
+            this.loadingProductsAlert.dismiss();
 
             if (!apiResponse.isValidResponse())
             {
@@ -115,15 +119,12 @@ public class TopEmployees extends AppCompatActivity
             }
         }
 
-        private AlertDialog loadingEmployeesAlert;
+        private AlertDialog loadingProductsAlert;
 
         private RetrieveEmployeesTask() {
-            this.loadingEmployeesAlert = new AlertDialog.Builder(TopEmployees.this).
+            this.loadingProductsAlert = new AlertDialog.Builder(TopEmployees.this).
                     setMessage(R.string.alert_dialog_employees_loading).
                     create();
         }
     }
-
-    private List<Employee> employees;
-    private EmployeeListAdapter employeeListAdapter;
 }
