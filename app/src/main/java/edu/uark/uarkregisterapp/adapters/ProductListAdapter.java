@@ -35,6 +35,11 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 			if (countTextView != null) {
 				countTextView.setText(String.format(Locale.getDefault(), "%d", product.getCount()));
 			}
+
+			TextView soldTextView = (TextView) view.findViewById(R.id.list_view_item_product_sold);
+			if (soldTextView != null) {
+				soldTextView.setText(String.format(Locale.getDefault(), "%d", product.getSold()));
+			}
 		}
 
 		return view;
