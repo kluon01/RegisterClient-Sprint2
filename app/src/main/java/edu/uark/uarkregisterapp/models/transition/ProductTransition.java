@@ -19,12 +19,14 @@ public class ProductTransition implements Parcelable
 	private int count;
 	private Date createdOn;
 	private int sold;
+	private double cost;
 
 	public UUID getId() { return this.id; }
 	public String getLookupCode() { return this.lookupCode; }
 	public int getCount() { return this.count; }
 	public Date getCreatedOn() { return this.createdOn; }
 	public int getSold() { return this.sold; }
+	public double getCost() { return this.cost; }
 
 	public ProductTransition setId(UUID id)
 	{
@@ -56,6 +58,12 @@ public class ProductTransition implements Parcelable
 		return this;
 	}
 
+	public ProductTransition setCost(double c)
+	{
+		this.cost = c;
+		return this;
+	}
+
 	@Override
 	public void writeToParcel(Parcel destination, int flags)
 	{
@@ -64,6 +72,7 @@ public class ProductTransition implements Parcelable
 		destination.writeInt(this.count);
 		destination.writeInt(this.sold);
 		destination.writeLong(this.createdOn.getTime());
+		destination.writeDouble(this.cost);
 	}
 
 	@Override
@@ -90,6 +99,7 @@ public class ProductTransition implements Parcelable
 		this.createdOn = new Date();
 		this.lookupCode = StringUtils.EMPTY;
 		this.sold = -1;
+		this.cost = 0.0;
 	}
 
 	public ProductTransition(Product product)
@@ -99,6 +109,7 @@ public class ProductTransition implements Parcelable
 		this.createdOn = product.getCreatedOn();
 		this.lookupCode = product.getLookupCode();
 		this.sold = product.getSold();
+		this.cost = product.getCost();
 	}
 
 	private ProductTransition(Parcel productTransitionParcel)
@@ -107,6 +118,7 @@ public class ProductTransition implements Parcelable
 		this.lookupCode = productTransitionParcel.readString();
 		this.count = productTransitionParcel.readInt();
 		this.sold = productTransitionParcel.readInt();
+		this.cost = productTransitionParcel.readDouble();
 		this.createdOn = new Date();
 		this.createdOn.setTime(productTransitionParcel.readLong());
 	}
