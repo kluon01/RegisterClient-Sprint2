@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +25,7 @@ import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
+import edu.uark.uarkregisterapp.models.api.ShoppingCart;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 
@@ -33,6 +36,8 @@ public class ShoppingCartActivity extends AppCompatActivity
     private List<Product> products;
     private ProductListAdapter productListAdapter;
     private EmployeeTransition employeeTransition;
+    private ProductService productService = new ProductService();
+    private ShoppingCart shoppingCart = new ShoppingCart();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,6 +66,18 @@ public class ShoppingCartActivity extends AppCompatActivity
     public void addByLookupCode(View view)
     {
         this.displayFunctionalityNotAvailableDialog();
+        if(!validateInput())
+        {
+            return;
+        }
+        String lookup_code = this.getLookupCodeEditText().getText().toString();
+        ApiResponse<Product> product = (new ProductService().getProductByLookupCode(lookup_code));
+
+    }
+
+    private EditText getLookupCodeEditText()
+    {
+        return (EditText) this.findViewById(R.id.edit_text_shopping_cart_lookup_code);
     }
 
     public void completeTransaction(View view)
@@ -82,6 +99,27 @@ public class ShoppingCartActivity extends AppCompatActivity
                 ).
                 create().
                 show();
+    }
+
+    private boolean validateInput() {
+        boolean validInput = true;
+
+        if (StringUtils.isBlank(this.getLookupCodeEditText().getText().toString()))
+        {
+            this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_first_name);
+            this.getLookupCodeEditText().requestFocus();
+            validInput = false;
+        }
+
+        return validInput;
+    }
+
+    private void displayValidationAlert(int stringId)
+    {
+        new AlertDialog.Builder(this)
+                .setMessage(stringId)
+                .create()
+                .show();
     }
 
     //private ListView getProductsListView() {
