@@ -30,7 +30,7 @@ public class TopProductsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.top_products);
+        setContentView(R.layout.activity_top_products);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         ActionBar actionBar = this.getSupportActionBar();
