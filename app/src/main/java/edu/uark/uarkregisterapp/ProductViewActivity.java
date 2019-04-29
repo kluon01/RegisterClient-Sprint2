@@ -70,7 +70,6 @@ public class ProductViewActivity extends AppCompatActivity
 		}
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
 		this.getProductCountEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getCount()));
-		this.getProductSoldEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getSold()));
 		this.getProductCreatedOnEditText().setText(
 			(new SimpleDateFormat("MM/dd/yyyy", Locale.US)).format(this.productTransition.getCreatedOn())
 		);
@@ -191,8 +190,7 @@ public class ProductViewActivity extends AppCompatActivity
 			Product product = (new Product()).
 				setId(productTransition.getId()).
 				setLookupCode(getProductLookupCodeEditText().getText().toString()).
-				setCount(Integer.parseInt(getProductCountEditText().getText().toString())).
-				setSold(Integer.parseInt(getProductSoldEditText().getText().toString()));
+				setCount(Integer.parseInt(getProductCountEditText().getText().toString()));
 
 
 			ApiResponse<Product> apiResponse = (
@@ -204,7 +202,6 @@ public class ProductViewActivity extends AppCompatActivity
 			if (apiResponse.isValidResponse()) {
 				productTransition.setCount(apiResponse.getData().getCount());
 				productTransition.setLookupCode(apiResponse.getData().getLookupCode());
-				productTransition.setSold(apiResponse.getData().getSold());
 			}
 
 			return apiResponse.isValidResponse();
