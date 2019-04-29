@@ -31,4 +31,23 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="28dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/list_view_employees"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="15dp"
+        android:text="Employee_ID" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_above="@id/list_view_employees"
+        android:layout_marginLeft="185dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="Items Sold" />
 </RelativeLayout>
