@@ -9,8 +9,14 @@ import edu.uark.uarkregisterapp.models.api.Product;
 
 public class ShoppingCart
 {
-    private ArrayList<ProductList> products = new ArrayList<ProductList>();
+    private ArrayList<ProductList> products;
     private double total;
+
+    public ShoppingCart()
+    {
+        this.products = new ArrayList<ProductList>();
+        this.total = 0;
+    }
 
     void setTotal(double t)
         {this.total = t;}
@@ -56,10 +62,16 @@ public class ShoppingCart
         return null;
     }
     //need to convert to products and return
-    /*public ArrayList<Product> getProducts()
+    public ArrayList<Product> getProducts()
     {
-        return this.products;
-    }*/
+        ArrayList<Product> out = new ArrayList<Product>();
+        Iterator<ProductList> iter = this.products.iterator();
+        while(iter.hasNext())
+        {
+            out.add(iter.next().getProduct());
+        }
+        return out;
+    }
 
     static public class ProductComparator implements Comparator<ProductList>
     {
@@ -120,6 +132,7 @@ public class ShoppingCart
         }
         public int getQuantity()
         {
-            return this.quantity;}
+            return this.quantity;
         }
     }
+}
