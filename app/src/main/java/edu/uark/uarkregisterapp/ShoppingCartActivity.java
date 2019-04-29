@@ -28,16 +28,20 @@ import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.api.ShoppingCart;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
+import edu.uark.uarkregisterapp.adapters.ShoppingCartListAdapter;
 
 
 
 public class ShoppingCartActivity extends AppCompatActivity
 {
-    private List<Product> products;
+    //private List<Product> products;
     private ProductListAdapter productListAdapter;
     private EmployeeTransition employeeTransition;
-    private ProductService productService = new ProductService();
-    private ShoppingCart shoppingCart = new ShoppingCart();
+    private ProductService productService;
+    private ShoppingCart shoppingCart;
+    private ListView listView;
+    private ArrayList<Product> products;
+    private ShoppingCartListAdapter productAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -50,6 +54,12 @@ public class ShoppingCartActivity extends AppCompatActivity
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        this.products = new ArrayList<Product>();
+        this.productService = new ProductService();
+        this.shoppingCart = new ShoppingCart();
+        this.listView = getShoppingCartListView();
+        this.productAdapter = new ShoppingCartListAdapter(this, this.products);
+        this.listView.setAdapter(this.productAdapter);
 
         //this.products = new ArrayList<>();
         //this.productListAdapter = new ProductListAdapter(this, this.products);
@@ -72,12 +82,19 @@ public class ShoppingCartActivity extends AppCompatActivity
         }
         String lookup_code = this.getLookupCodeEditText().getText().toString();
         ApiResponse<Product> product = (new ProductService().getProductByLookupCode(lookup_code));
-
+        Product t_product = product.getData();
+        shoppingCart.addProduct(t_product);
+        this.products.add(t_product);
     }
 
     private EditText getLookupCodeEditText()
     {
         return (EditText) this.findViewById(R.id.edit_text_shopping_cart_lookup_code);
+    }
+
+    private ListView getShoppingCartListView()
+    {
+        return (ListView) this.findViewById(R.id.list_view_shopping_cart);
     }
 
     public void completeTransaction(View view)
@@ -125,156 +142,6 @@ public class ShoppingCartActivity extends AppCompatActivity
     //private ListView getProductsListView() {
         //return (ListView) this.findViewById(R.id.list_view_products);
     //}
-
-
-
-    // count is a placeholder for how many of each item was sold
-// employee_sales is a placeholder for the number of items sold by an Employee
-// new_count is a placeholder for how many of each item was sold + DB Number
-// new_employee_sales is a placeholder for the number of items sold by an Employee + database number
-
-
-
- /*   private class SaveDatabaseTask extends AsyncTask<Void, Void, Boolean>
-    {
-        int count = 0;
-        int employee_sales = 0;
-        int new_count = 0;
-        int new_employee_sales= 0;
-
-
-        protected void onPreExecute ()
-    {
-        this.savingDatabaseAlert.show();
-    }
-
-        protected void updateInfo ()
-        {
-            Product product_DB = (new Product()).
-                    setID(productTransition.getId()).
-                    setCount(productTransition.getCount());
-
-            new_count = product_DB.count + count;
-
-            Employee employee_DB = (new Employee()).
-                    setEmployeeId(employeeTransition.getEmployeeId()).
-                    setSales(employeeTransition.getEmployeeSales());
-
-            new_employee_sales = employee_DB.sales + employee_sales;
-
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params)
-    {
-        updateInfo();
-        Product product = (new Product()).
-                setId(productTransition.getId()).
-                setCount(Integer.parseInt(new_count.getText().toString()));
-
-        ApiResponse<Product> apiResponse1 = (
-                (product.getId().equals(new UUID(0, 0)))
-                        ? (new ProductService()).createProduct(product)
-                        : (new ProductService()).updateProduct(product)
-        );
-
-        Employee employee = (new Employee()).
-                setEmployeeId(employeeTransition.getEmployeeId()).
-                setSales(Integer.parseInt(new_employee_sales.getText().toString()));
-
-        ApiResponse<Employee> apiResponse2 = (
-                (employee.getId().equals(new UUID(0, 0)))
-                        ? (new EmployeeService()).createEmployee(employee)
-                        : (new EmployeeService()).updateEmployee(employee)
-        );
-
-        if (apiResponse1.isValidResponse()) {
-            productTransition.setCount(apiResponse.getData().getCount());
-        }
-
-        return apiResponse1.isValidResponse();
-
-        if (apiResponse2.isValidResponse()) {
-            employeeTransition.setEmployeeSales(apiResponse.getData().getEmployeeSales());
-        }
-
-        return apiResponse2.isValidResponse();
-
-    }
-        @Override
-        protected void onPostExecute(Boolean successfulSave)
-        {
-            String message1;
-            String message2;
-
-            savingProductAlert.dismiss();
-            savingEmployeeAlert.dismiss();
-
-
-            if (successfulSave)
-            {
-                message1 = getString(R.string.alert_dialog_product_save_success);
-                message2 = getString(R.string.alert_dialog_employee_save_success);
-
-            }
-            else
-            {
-                message1 = getString(R.string.alert_dialog_product_save_failure);
-                message2 = getString(R.string.alert_dialog_employee_save_failure);
-
-            }
-
-            new AlertDialog.Builder(ShoppingCartActivity.this).
-                    setMessage(message1).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-
-            new AlertDialog.Builder(ShoppingCartActivity.this).
-                    setMessage(message2).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        private AlertDialog savingProductAlert;
-        private AlertDialog savingEmployeeAlert;
-
-
-        private SaveProductTask()
-        {
-            this.savingProductAlert = new AlertDialog.Builder(ShoppingCartActivity.this).
-                    setMessage(R.string.alert_dialog_product_save).
-                    create();
-        }
-
-        private SaveEmployeeTask()
-        {
-            this.savingEmployeeAlert = new AlertDialog.Builder(ShoppingCartActivity.this).
-                    setMessage(R.string.alert_dialog_employee_save).
-                    create();
-        }
-
-    }
-
-
-    private ProductTransition productTransition;
-*/
 }
 
 
