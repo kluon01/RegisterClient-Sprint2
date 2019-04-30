@@ -16,11 +16,52 @@
 
     <ListView
         android:id="@+id/list_view_products"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="381dp"
+        android:layout_height="599dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="-32dp" />
+
+    <TextView
+        android:id="@+id/lookupcode"
+        android:textSize="15sp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/list_view_products"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/column_lookupcode"
+        />
+
+    <TextView
+        android:id="@+id/count"
+        android:textSize="15sp"
+        android:layout_toRightOf="@+id/lookupcode"
+        android:layout_above="@+id/list_view_products"
+        android:layout_marginLeft="110dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/column_count"
+        />
+
+    <TextView
+        android:id="@+id/sold"
+        android:textSize="15sp"
+        android:layout_toRightOf="@+id/count"
+        android:layout_above="@+id/list_view_products"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sold"
+        />
 
 </RelativeLayout>
