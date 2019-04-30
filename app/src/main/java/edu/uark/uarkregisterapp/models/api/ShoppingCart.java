@@ -1,136 +1,51 @@
 package edu.uark.uarkregisterapp.models.api;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.UUID;
-import java.util.Comparator;
-
 public class ShoppingCart
 {
-    private ArrayList<ProductList> products;
+    private Product product;
     private double total;
+    public int quantity;
 
     public ShoppingCart()
     {
-        this.products = new ArrayList<ProductList>();
         this.total = 0;
+        this.quantity = 1;
     }
 
-    void setTotal(double t)
-        {this.total = t;}
-
-    void addTotal(double t)
-        {this.total = this.total + t;}
-
-    double getTotal()
-        {return this.total;}
-
-    //iterates over arraylist and calculates total
-    void updateTotal()
+    public ShoppingCart(Product product)
     {
-        this.total = 0.0;
-        Iterator<ProductList> iter = this.products.iterator();
-        while(iter.hasNext())
-        {
-            ProductList arr_prod = iter.next();
-            double price = arr_prod.getProduct().getPrice();
-            this.total = this.total + price;
-        }
+        // Clean copy of product object
+        this.product = product;
+       /* this.product.setCount(product.getCount());
+        this.product.setCreatedOn(product.getCreatedOn());
+        this.product.setId(product.getId());
+        this.product.setLookupCode(product.getLookupCode());
+        this.product.setPrice(product.getPrice());
+        this.product.setSold(product.getSold());*/
+
+        this.quantity = 1;
+        this.total = quantity * product.getPrice();
     }
 
-    public void addProduct(Product p)
+    public ShoppingCart(Product product, int quantity)
     {
-        ProductList add = new ProductList(p);
-        this.products.add(add);
-    }
-    public Product removeProduct(Product p)
-    {
-        UUID in_id = p.getId();
-        Iterator<ProductList> iter = this.products.iterator();
-        while(iter.hasNext())
-        {
-            ProductList arr_prod = iter.next();
-            UUID arr_id = arr_prod.getProduct().getId();
-            if(arr_id.equals(in_id))
-            {
-                this.products.remove(arr_prod);
-                return arr_prod.getProduct();
-            }
-        }
-        return null;
-    }
-    //need to convert to products and return
-    public ArrayList<Product> getProducts()
-    {
-        ArrayList<Product> out = new ArrayList<Product>();
-        Iterator<ProductList> iter = this.products.iterator();
-        while(iter.hasNext())
-        {
-            out.add(iter.next().getProduct());
-        }
-        return out;
+        // Clean copy of product object
+        this.product = product;
+        /*this.product.setCount(product.getCount());
+        this.product.setCreatedOn(product.getCreatedOn());
+        this.product.setId(product.getId());
+        this.product.setLookupCode(product.getLookupCode());
+        this.product.setPrice(product.getPrice());
+        this.product.setSold(product.getSold());*/
+
+        this.quantity = quantity;
+        this.total = quantity * product.getPrice();
     }
 
-    static public class ProductComparator implements Comparator<ProductList>
-    {
-        public int compare(ProductList a, ProductList b)
-        {
-            if(a.getProduct().getId() == b.getProduct().getId())
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-            /*else if(a.getId() > b.getId())
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }*/
-        }
-    }
+    public void increaseQuantity() { this.quantity++; }
 
-    static public class ProductList
-    {
-        private Product product;
-        private int quantity;
+    public Product getProduct() { return this.product; }
 
-        ProductList()
-        {
-            this.product = new Product();
-            this.quantity = 0;
-        }
+    public int getQuantity() { return this.quantity; }
 
-        ProductList(Product p)
-        {
-            this.product = p;
-            this.quantity = 0;
-        }
-
-        public void setProduct(Product p)
-        {
-            this.product = p;
-        }
-        public void setQuantity(int q)
-        {
-            this.quantity = q;
-        }
-        public void addQuantity()
-        {
-            this.quantity = this.quantity + 1;
-        }
-
-        public Product getProduct()
-        {
-            return this.product;
-        }
-        public int getQuantity()
-        {
-            return this.quantity;
-        }
-    }
 }

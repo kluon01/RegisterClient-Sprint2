@@ -1,7 +1,6 @@
 package edu.uark.uarkregisterapp;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,12 +15,8 @@ import android.widget.ListView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
 import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.api.ShoppingCart;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
@@ -32,8 +26,8 @@ import edu.uark.uarkregisterapp.adapters.ShoppingCartListAdapter;
 
 public class ShoppingCartActivity extends AppCompatActivity
 {
-    private List<Product> products = new ArrayList<>();
-    private ShoppingCart shoppingCart;
+    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<ShoppingCart> shoppingcartproducts = new ArrayList<>();
     private ListView listView;
     private ShoppingCartListAdapter shoppingCartAdapter;
 
@@ -49,7 +43,6 @@ public class ShoppingCartActivity extends AppCompatActivity
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        this.shoppingCart = new ShoppingCart();
         this.listView = getShoppingCartListView();
         this.shoppingCartAdapter = new ShoppingCartListAdapter(this, this.products);
         this.listView.setAdapter(this.shoppingCartAdapter);
@@ -75,10 +68,6 @@ public class ShoppingCartActivity extends AppCompatActivity
         String lookup_code = this.getLookupCodeEditText().getText().toString();
         RetrieveProductTask retrieveProductTask = new RetrieveProductTask(lookup_code);
         retrieveProductTask.execute();
-        //ApiResponse<Product> product = (new ProductService().getProductByLookupCode(lookup_code));
-        //Product t_product = product.getData();
-        //shoppingCart.addProduct(t_product);
-        //this.products.add(t_product);
     }
 
     private EditText getLookupCodeEditText()
@@ -93,7 +82,9 @@ public class ShoppingCartActivity extends AppCompatActivity
 
     public void completeTransaction(View view)
     {
-        this.displayFunctionalityNotAvailableDialog();
+        //this.displayFunctionalityNotAvailableDialog();
+        TransactionTask transaction = new TransactionTask();
+        transaction.execute();
     }
 
     private void displayFunctionalityNotAvailableDialog()
@@ -134,9 +125,88 @@ public class ShoppingCartActivity extends AppCompatActivity
                 .show();
     }
 
-    //private ListView getProductsListView() {
-    //return (ListView) this.findViewById(R.id.list_view_products);
-    //}
+    private void addProductToShoppingCart(Product checkproduct)
+    {
+        boolean found = false;
+        for (int x = 0; x < shoppingcartproducts.size(); x++)
+        {
+            if(shoppingcartproducts.get(x).getProduct().getLookupCode().equals(checkproduct.getLookupCode()))
+            {
+                shoppingcartproducts.get(x).quantity++;
+                found = true;
+            }
+        }
+
+        if(!found)
+        {
+            shoppingcartproducts.add(new ShoppingCart(checkproduct));
+        }
+
+        products.add(checkproduct);
+    }
+
+    private class TransactionTask extends AsyncTask<Void, Void, ApiResponse<Product>>
+    {
+        private AlertDialog TransactionAlert;
+        private TransactionTask()
+        {
+            this.TransactionAlert = new AlertDialog.Builder(ShoppingCartActivity.this).
+                    setMessage("Failed").
+                    create();
+        }
+
+        @Override
+        protected ApiResponse<Product> doInBackground(Void... params)
+        {
+            ApiResponse<Product> apiResponse = new ApiResponse<>();
+
+            for (int x = 0; x < shoppingcartproducts.size(); x++)
+            {
+                ShoppingCart updated_shopproduct = shoppingcartproducts.get(x);
+
+                Product updated_product = shoppingcartproducts.get(x).getProduct();
+
+                updated_product.setCount(updated_product.getCount() - updated_shopproduct.quantity);
+
+                apiResponse = (new ProductService()).updateProduct(updated_product);
+
+                if (apiResponse.isValidResponse())
+                {
+                    Log.d("Sending", "Success"); // For debugging
+                }
+
+                if (!(apiResponse.isValidResponse()))
+                {
+                    Log.d("Sending", "Failure");
+                }
+            }
+
+            return apiResponse;
+        }
+
+        @Override
+        protected void onPostExecute(ApiResponse<Product> apiResponse)
+        {
+            this.TransactionAlert.dismiss();
+
+            if (!apiResponse.isValidResponse())
+            {
+                new AlertDialog.Builder(ShoppingCartActivity.this).
+                        setMessage("Transaction Failed").
+                        setPositiveButton(
+                                R.string.button_dismiss,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                }
+                        ).
+                        create().
+                        show();
+            }
+        }
+    }
+
 
     private class RetrieveProductTask extends AsyncTask<Void, Void, ApiResponse<Product>>
     {
@@ -161,8 +231,9 @@ public class ShoppingCartActivity extends AppCompatActivity
                 //products.clear();
                 Product t_product = apiResponse.getData();
                 //Log.d("Product Lookup", "Success"); // For debugging
-                shoppingCart.addProduct(t_product);
-                products.add(t_product);
+                //shoppingcartproducts.add(new ShoppingCart(t_product, findDuplicates(t_product)));
+                //products.add(t_product);
+                addProductToShoppingCart(t_product);
             }
 
             if (!(apiResponse.isValidResponse()))
