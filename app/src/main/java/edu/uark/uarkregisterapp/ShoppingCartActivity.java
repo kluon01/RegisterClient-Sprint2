@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -59,6 +60,20 @@ public class ShoppingCartActivity extends AppCompatActivity
         //this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:  // Respond to the action bar's Up/Home button
+                this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onStart()
     {
@@ -93,7 +108,7 @@ public class ShoppingCartActivity extends AppCompatActivity
         TransactionTask transaction = new TransactionTask();
         transaction.execute();
         this.displayValidationAlert(R.string.alert_dialog_transaction_complete);
-        this.startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        //this.startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
     private void displayFunctionalityNotAvailableDialog()
@@ -176,6 +191,7 @@ public class ShoppingCartActivity extends AppCompatActivity
                 Product updated_product = shoppingcartproducts.get(x).getProduct();
 
                 updated_product.setCount(updated_product.getCount() - updated_shopproduct.quantity);
+                updated_product.setSold(updated_product.getSold() + updated_shopproduct.quantity);
 
                 apiResponse = (new ProductService()).updateProduct(updated_product);
 
@@ -280,4 +296,3 @@ public class ShoppingCartActivity extends AppCompatActivity
         }
     }
 }
-

@@ -39,7 +39,7 @@
     <string name="edit_text_hint_employee_create_password">Password</string>
     <string name="edit_text_hint_employee_create_password_confirm">Confirm password</string>
     <string name="alert_dialog_product_delete">Deleting Product&#8320;</string>
-    <string name="alert_dialog_transaction_complete">Transaction Completed</string>
+    <string name="alert_dialog_transaction_complete">Transaction Completed. Please go back to start a new transaction.</string>
     <string name="alert_dialog_product_delete_success">The product was successfully deleted.</string>
     <string name="alert_dialog_product_delete_failure">An issue was encountered when attempting to delete the product. You can try again to delete the product.</string>
     <string name="alert_dialog_products_load_failure">Unable to load products listing.</string>
