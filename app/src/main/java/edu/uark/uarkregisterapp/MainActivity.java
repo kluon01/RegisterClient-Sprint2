@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeClassification;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -37,11 +38,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void productSalesReportButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), TopProductsActivity.class));
+        if(this.employeeTransition.getClassification() == EmployeeClassification.GENERAL_MANAGER || this.employeeTransition.getClassification() == EmployeeClassification.SHIFT_MANAGER) {
+            this.startActivity(new Intent(getApplicationContext(), TopProductsActivity.class));
+        }
+        else
+        {
+            displayNoAccessDialog();
+        }
     }
 
     public void cashierSalesReportButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), TopEmployees.class));
+        if(this.employeeTransition.getClassification() == EmployeeClassification.GENERAL_MANAGER) {
+            this.startActivity(new Intent(getApplicationContext(), TopEmployees.class));
+        }
+        else
+        {
+            displayNoAccessDialog();
+        }
     }
 
     public void createEmployeeButtonOnClick(View view) {
@@ -63,6 +76,22 @@ public class MainActivity extends AppCompatActivity
     {
         new AlertDialog.Builder(this).
                 setMessage(R.string.alert_dialog_functionality_not_available).
+                setPositiveButton(
+                        R.string.button_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        }
+                ).
+                create().
+                show();
+    }
+
+    private void displayNoAccessDialog()
+    {
+        new AlertDialog.Builder(this).
+                setMessage(R.string.alert_dialog_no_access).
                 setPositiveButton(
                         R.string.button_ok,
                         new DialogInterface.OnClickListener() {
