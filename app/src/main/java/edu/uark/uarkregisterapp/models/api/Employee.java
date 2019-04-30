@@ -173,7 +173,7 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         this.firstName = StringUtils.EMPTY;
         this.employeeId = StringUtils.EMPTY;
         this.classification = EmployeeClassification.NOT_DEFINED;
-        this.sales = -1;
+        this.sales = 0;
 
     }
 }

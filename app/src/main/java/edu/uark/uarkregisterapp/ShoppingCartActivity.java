@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.uark.uarkregisterapp.models.api.Product;
@@ -34,7 +35,8 @@ public class ShoppingCartActivity extends AppCompatActivity
     private ListView listView;
     private ShoppingCartListAdapter shoppingCartAdapter;
     private TextView TotalView;
-    private double runningTotal = 0.0;
+    private double runningTotal = 0.00;
+    DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,7 +88,7 @@ public class ShoppingCartActivity extends AppCompatActivity
         {
             return;
         }
-        TotalView.setText(Double.toString(runningTotal));
+        TotalView.setText(df.format(runningTotal));
         String lookup_code = this.getLookupCodeEditText().getText().toString();
         RetrieveProductTask retrieveProductTask = new RetrieveProductTask(lookup_code);
         retrieveProductTask.execute();
