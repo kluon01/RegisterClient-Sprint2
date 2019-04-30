@@ -18,6 +18,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
     <string name="button_create_product">Create Product</string>
+    <string name="button_send_mock_transaction">Mock Transaction</string>
     <string name="button_shopping_cart_complete_transaction">Complete Transaction</string>
     <string name="button_shopping_cart_add_product">Add Product</string>
     <string name="text_view_landing_welcome">UARK Register App</string>
@@ -54,6 +55,8 @@
     <string name="alert_dialog_employees_loading">Loading Employees</string>
     <string name="alert_dialog_product_save">Saving Product&#8320;</string>
     <string name="alert_dialog_product_save_success">The product was successfully saved.</string>
+    <string name="alert_dialog_database_save_success">The database was successfully saved.</string>
+    <string name="alert_dialog_database_save_failure">An issue was encountered when attempting to save the database. The changes were not saved.</string>
     <string name="alert_dialog_product_save_failure">An issue was encountered when attempting to save the product. The changes were not saved.</string>
     <string name="alert_dialog_employee_create_validation_first_name">First name may not be empty.</string>
     <string name="alert_dialog_employee_create_validation_last_name">Last name may not be empty.</string>
@@ -69,4 +72,10 @@
     <string name="cart_product_lookup_failure">Unable to find a product with that lookup code.</string>
     <string name="alert_dialog_product_loading">Loading Product</string>
     <string name="alert_dialog_product_lookupcode_empty">Look up code may not be empty.</string>
+    <string name="column_lookupcode">Lookup Code</string>
+    <string name="column_sold">Sold</string>
+    <string name="column_count">Count</string>
+    <string name="column_employeeID">Employee ID</string>
+    <string name="column_sales">Sales</string>
+    <string name="title_activity_mock_transaction">MockTransactionActivity</string>
 </resources>

@@ -117,7 +117,7 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		this.lookupCode = "";
 		this.id = new UUID(0, 0);
 		this.createdOn = new Date();
-		this.sold = -1;
+		this.sold = 0;
 		this.price = 0.0;
 	}
 

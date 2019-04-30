@@ -14,7 +14,7 @@
         android:layout_gravity="start"/>
 
     <TextView
-        android:id="@+id/list_view_item_product_sold"
+        android:id="@+id/list_view_item_product_count"
         android:text="0"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
@@ -23,7 +23,7 @@
         android:layout_gravity="end"/>
 
     <TextView
-        android:id="@+id/list_view_item_product_count"
+        android:id="@+id/list_view_item_product_sold"
         android:text="@string/text_view_products_count"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
