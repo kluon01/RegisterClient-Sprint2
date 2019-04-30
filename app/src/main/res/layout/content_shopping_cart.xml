@@ -57,21 +57,22 @@
 
     <TextView
         android:id="@+id/text_view_shopping_cart_total"
-        android:text="@string/text_view_label_shopping_cart_total"
-        android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/list_view_shopping_cart"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="11dp"
+        android:text="@string/text_view_label_shopping_cart_total"
+        android:textSize="22dp" />
 
     <Button
         android:id="@+id/button_complete_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_shopping_cart_total"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_shopping_cart_complete_transaction"
-        android:onClick="completeTransaction"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-32dp"
+        android:layout_marginEnd="4dp"
+        android:onClick="completeTransaction"
+        android:text="@string/button_shopping_cart_complete_transaction" />
 
 </RelativeLayout>
