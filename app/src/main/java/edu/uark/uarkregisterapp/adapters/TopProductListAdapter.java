@@ -14,10 +14,12 @@ import java.util.Locale;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Product;
 
-public class TopProductListAdapter extends ArrayAdapter<Product> {
+public class TopProductListAdapter extends ArrayAdapter<Product>
+{
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent)
+    {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());

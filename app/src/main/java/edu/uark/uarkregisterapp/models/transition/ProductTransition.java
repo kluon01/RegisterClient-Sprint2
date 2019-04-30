@@ -19,14 +19,14 @@ public class ProductTransition implements Parcelable
 	private int count;
 	private Date createdOn;
 	private int sold;
-	private double cost;
+	private double price;
 
 	public UUID getId() { return this.id; }
 	public String getLookupCode() { return this.lookupCode; }
 	public int getCount() { return this.count; }
 	public Date getCreatedOn() { return this.createdOn; }
 	public int getSold() { return this.sold; }
-	public double getCost() { return this.cost; }
+	public double getPrice() { return this.price; }
 
 	public ProductTransition setId(UUID id)
 	{
@@ -58,9 +58,9 @@ public class ProductTransition implements Parcelable
 		return this;
 	}
 
-	public ProductTransition setCost(double c)
+	public ProductTransition setPrice(double c)
 	{
-		this.cost = c;
+		this.price = c;
 		return this;
 	}
 
@@ -71,8 +71,8 @@ public class ProductTransition implements Parcelable
 		destination.writeString(this.lookupCode);
 		destination.writeInt(this.count);
 		destination.writeInt(this.sold);
+		destination.writeDouble(this.price);
 		destination.writeLong(this.createdOn.getTime());
-		destination.writeDouble(this.cost);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class ProductTransition implements Parcelable
 		this.createdOn = new Date();
 		this.lookupCode = StringUtils.EMPTY;
 		this.sold = -1;
-		this.cost = 0.0;
+		this.price = 0.0;
 	}
 
 	public ProductTransition(Product product)
@@ -109,7 +109,7 @@ public class ProductTransition implements Parcelable
 		this.createdOn = product.getCreatedOn();
 		this.lookupCode = product.getLookupCode();
 		this.sold = product.getSold();
-		this.cost = product.getCost();
+		this.price = product.getPrice();
 	}
 
 	private ProductTransition(Parcel productTransitionParcel)
@@ -118,7 +118,7 @@ public class ProductTransition implements Parcelable
 		this.lookupCode = productTransitionParcel.readString();
 		this.count = productTransitionParcel.readInt();
 		this.sold = productTransitionParcel.readInt();
-		this.cost = productTransitionParcel.readDouble();
+		this.price = productTransitionParcel.readDouble();
 		this.createdOn = new Date();
 		this.createdOn.setTime(productTransitionParcel.readLong());
 	}

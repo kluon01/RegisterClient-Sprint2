@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.UUID;
 import java.util.Comparator;
 
-import edu.uark.uarkregisterapp.models.api.Product;
-
 public class ShoppingCart
 {
     private ArrayList<ProductList> products;
@@ -35,7 +33,7 @@ public class ShoppingCart
         while(iter.hasNext())
         {
             ProductList arr_prod = iter.next();
-            double price = arr_prod.getProduct().getCost();
+            double price = arr_prod.getProduct().getPrice();
             this.total = this.total + price;
         }
     }

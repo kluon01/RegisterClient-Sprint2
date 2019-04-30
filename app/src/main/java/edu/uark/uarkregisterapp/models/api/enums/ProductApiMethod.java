@@ -7,7 +7,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public enum ProductApiMethod implements PathElementInterface {
 	NONE(""),
-	BY_LOOKUP_CODE("bylookupcode"),
+	BY_LOOKUP_CODE("byLookupCode"),
 	BY_HIGHEST_SOLD("byHighestSold");
 
 	@Override

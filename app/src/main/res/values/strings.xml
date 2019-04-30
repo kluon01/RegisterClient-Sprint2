@@ -32,6 +32,7 @@
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_label_shopping_cart_lookup_code">Lookup Code:</string>
     <string name="text_view_label_shopping_cart_total">Total: $</string>
+    <string name="text_view_products_lookup_price">Total: $</string>
     <string name="edit_text_hint_employee_create_first_name">First name</string>
     <string name="edit_text_hint_employee_create_last_name">Last name</string>
     <string name="edit_text_hint_employee_create_password">Password</string>
@@ -65,4 +66,7 @@
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="title_activity_create_employee">CreateEmployeeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="cart_product_lookup_failure">Unable to find a product with that lookup code.</string>
+    <string name="alert_dialog_product_loading">Loading Product</string>
+    <string name="alert_dialog_product_lookupcode_empty">Look up code may not be empty.</string>
 </resources>

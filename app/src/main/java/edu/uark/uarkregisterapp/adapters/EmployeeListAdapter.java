@@ -14,18 +14,22 @@ import java.util.Locale;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Employee;
 
-public class EmployeeListAdapter extends ArrayAdapter<Employee> {
+public class EmployeeListAdapter extends ArrayAdapter<Employee>
+{
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent)
+    {
         View view = convertView;
-        if (view == null) {
+        if (view == null)
+        {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
             view = inflater.inflate(R.layout.list_view_top_employees, parent, false);
         }
 
         Employee employee = this.getItem(position);
-        if (employee != null) {
+        if (employee != null)
+        {
             TextView lookupCodeTextView = (TextView) view.findViewById(R.id.list_view_top_employees_UUID);
             if (lookupCodeTextView != null) {
                 lookupCodeTextView.setText(employee.getEmployeeId());
