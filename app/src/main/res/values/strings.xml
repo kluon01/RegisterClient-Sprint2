@@ -45,6 +45,7 @@
     <string name="alert_dialog_employees_load_failure">Unable to load employees listing.</string>
     <string name="alert_dialog_product_delete_confirm">Are you sure you want to delete this product? This action cannot be undone.</string>
     <string name="alert_dialog_no_employees_exist">No employees exist, please create an employee now.</string>
+    <string name="alert_dialog_no_access">No non-managers may access this activity.</string>
     <string name="alert_dialog_employee_id_empty">Employee ID must provided.</string>
     <string name="alert_dialog_employee_password_empty">Password must provided.</string>
     <string name="alert_dialog_signing_in">Signing in&#8320;</string>
