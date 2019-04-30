@@ -1,6 +1,7 @@
 package edu.uark.uarkregisterapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,6 +32,8 @@ public class ShoppingCartActivity extends AppCompatActivity
     private ArrayList<ShoppingCart> shoppingcartproducts = new ArrayList<>();
     private ListView listView;
     private ShoppingCartListAdapter shoppingCartAdapter;
+    private TextView TotalView;
+    private double runningTotal = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +50,8 @@ public class ShoppingCartActivity extends AppCompatActivity
         this.listView = getShoppingCartListView();
         this.shoppingCartAdapter = new ShoppingCartListAdapter(this, this.products);
         this.listView.setAdapter(this.shoppingCartAdapter);
+
+        TotalView = (TextView) findViewById(R.id.shopping_cart_total);
 
         //this.products = new ArrayList<>();
         //this.productListAdapter = new ProductListAdapter(this, this.products);
@@ -65,6 +71,7 @@ public class ShoppingCartActivity extends AppCompatActivity
         {
             return;
         }
+        TotalView.setText(Double.toString(runningTotal));
         String lookup_code = this.getLookupCodeEditText().getText().toString();
         RetrieveProductTask retrieveProductTask = new RetrieveProductTask(lookup_code);
         retrieveProductTask.execute();
@@ -85,6 +92,8 @@ public class ShoppingCartActivity extends AppCompatActivity
         //this.displayFunctionalityNotAvailableDialog();
         TransactionTask transaction = new TransactionTask();
         transaction.execute();
+        this.displayValidationAlert(R.string.alert_dialog_transaction_complete);
+        this.startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
     private void displayFunctionalityNotAvailableDialog()
@@ -137,11 +146,12 @@ public class ShoppingCartActivity extends AppCompatActivity
             }
         }
 
+        runningTotal += checkproduct.getPrice();
+
         if(!found)
         {
             shoppingcartproducts.add(new ShoppingCart(checkproduct));
         }
-
         products.add(checkproduct);
     }
 
@@ -211,6 +221,7 @@ public class ShoppingCartActivity extends AppCompatActivity
     {
         String lookupcode;
         private AlertDialog loadingProductAlert;
+
 
         private RetrieveProductTask(String lookupcode)
         {

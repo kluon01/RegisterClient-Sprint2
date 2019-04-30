@@ -110,4 +110,13 @@
         android:onClick="completeTransaction"
         android:text="@string/button_shopping_cart_complete_transaction" />
 
+    <TextView
+        android:id="@+id/shopping_cart_total"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_view_shopping_cart_total"
+        android:layout_below="@+id/list_view_shopping_cart"
+        android:layout_marginTop="13dp" />
+
 </RelativeLayout>

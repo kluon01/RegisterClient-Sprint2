@@ -124,5 +124,15 @@ public class ProductService extends BaseRemoteService {
 		return apiResponse;
 	}
 
+	public ApiResponse<Product> productTransaction(ArrayList<Product> productList)
+	{
+		return this.readProductDetailsFromResponse(
+				this.<Product>performPutRequest(
+						this.buildPath(productList.get(0).getId())
+						, productList.get(0).convertToJson()
+				)
+		);
+	}
+
 	public ProductService() { super(ApiObject.PRODUCT); }
 }
