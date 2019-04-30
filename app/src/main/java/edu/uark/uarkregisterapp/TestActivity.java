@@ -64,4 +64,9 @@ public class TestActivity extends AppCompatActivity
 
         this.startActivity(intent);
     }
+
+    public void createMockTransactionOnClick(View view)
+    {
+        this.startActivity(new Intent(getApplicationContext(), MockTransactionActivity.class));
+    }
 }

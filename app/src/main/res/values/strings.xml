@@ -18,6 +18,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
     <string name="button_create_product">Create Product</string>
+    <string name="button_send_mock_transaction">Mock Transaction</string>
     <string name="button_shopping_cart_complete_transaction">Complete Transaction</string>
     <string name="button_shopping_cart_add_product">Add Product</string>
     <string name="text_view_landing_welcome">UARK Register App</string>
@@ -70,4 +71,5 @@
     <string name="column_count">Count</string>
     <string name="column_employeeID">Employee ID</string>
     <string name="column_sales">Sales</string>
+    <string name="title_activity_mock_transaction">MockTransactionActivity</string>
 </resources>
