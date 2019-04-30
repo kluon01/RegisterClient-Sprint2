@@ -43,22 +43,30 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            displayNoAccessDialog();
+            displayNoAccessDialog(R.string.alert_dialog_no_access_reports);
         }
     }
 
     public void cashierSalesReportButtonOnClick(View view) {
-        if(this.employeeTransition.getClassification() == EmployeeClassification.GENERAL_MANAGER) {
+        if(this.employeeTransition.getClassification() == EmployeeClassification.GENERAL_MANAGER || this.employeeTransition.getClassification() == EmployeeClassification.SHIFT_MANAGER) {
             this.startActivity(new Intent(getApplicationContext(), TopEmployees.class));
         }
         else
         {
-            displayNoAccessDialog();
+            displayNoAccessDialog(R.string.alert_dialog_no_access_reports);
         }
     }
 
     public void createEmployeeButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));    }
+        if(this.employeeTransition.getClassification() == EmployeeClassification.GENERAL_MANAGER)
+        {
+            this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
+        }
+        else
+        {
+            displayNoAccessDialog(R.string.alert_dialog_no_access_create_employee);
+        }
+    }
 
     public void logOutButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), LandingActivity.class));
@@ -88,10 +96,10 @@ public class MainActivity extends AppCompatActivity
                 show();
     }
 
-    private void displayNoAccessDialog()
+    private void displayNoAccessDialog(int stringID)
     {
         new AlertDialog.Builder(this).
-                setMessage(R.string.alert_dialog_no_access).
+                setMessage(stringID).
                 setPositiveButton(
                         R.string.button_ok,
                         new DialogInterface.OnClickListener() {
