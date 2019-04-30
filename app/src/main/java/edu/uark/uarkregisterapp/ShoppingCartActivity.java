@@ -163,7 +163,6 @@ public class ShoppingCartActivity extends AppCompatActivity
             for (int x = 0; x < shoppingcartproducts.size(); x++)
             {
                 ShoppingCart updated_shopproduct = shoppingcartproducts.get(x);
-
                 Product updated_product = shoppingcartproducts.get(x).getProduct();
 
                 updated_product.setCount(updated_product.getCount() - updated_shopproduct.quantity);
