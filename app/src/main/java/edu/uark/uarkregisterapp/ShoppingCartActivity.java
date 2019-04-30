@@ -142,6 +142,10 @@ public class ShoppingCartActivity extends AppCompatActivity
     //private ListView getProductsListView() {
         //return (ListView) this.findViewById(R.id.list_view_products);
     //}
+
+    
+    //private ProductTransition productTransition;
+
 }
 
 

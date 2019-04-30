@@ -53,6 +53,8 @@
     <string name="alert_dialog_employees_loading">Loading Employees</string>
     <string name="alert_dialog_product_save">Saving Product&#8320;</string>
     <string name="alert_dialog_product_save_success">The product was successfully saved.</string>
+    <string name="alert_dialog_database_save_success">The database was successfully saved.</string>
+    <string name="alert_dialog_database_save_failure">An issue was encountered when attempting to save the database. The changes were not saved.</string>
     <string name="alert_dialog_product_save_failure">An issue was encountered when attempting to save the product. The changes were not saved.</string>
     <string name="alert_dialog_employee_create_validation_first_name">First name may not be empty.</string>
     <string name="alert_dialog_employee_create_validation_last_name">Last name may not be empty.</string>

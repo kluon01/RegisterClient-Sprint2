@@ -104,15 +104,15 @@ public class EmployeeService extends BaseRemoteService {
 			this.buildPath(employeeId)
 		);
 	}
-/*	public ApiResponse<Employee> updateEmployee(Employee employee) {
+	public ApiResponse<Employee> updateEmployee(Employee employee) {
 		return this.readEmployeeDetailsFromResponse(
-				this.<Product>performPutRequest(
+				this.<Employee>performPutRequest(
 						this.buildPath(employee.getId())
 						, employee.convertToJson()
 				)
 		);
 	}
-	*/
+
 	public ApiResponse<Employee> signIn(EmployeeSignIn employeeSignIn) {
 		return this.readEmployeeDetailsFromResponse(
 			this.<Employee>performPostRequest(
