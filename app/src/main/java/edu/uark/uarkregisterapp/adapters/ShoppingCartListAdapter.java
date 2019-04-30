@@ -53,7 +53,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<Product>
             TextView quantityTextView = view.findViewById(R.id.list_view_shopping_cart_quantity);
             if (quantityTextView != null)
             {
-                quantityTextView.setText(String.format(Locale.getDefault(), "%s", product.getSold()));
+                quantityTextView.setText(String.format(Locale.getDefault(), "%s", product.getCount()));
                 //quantityTextView.setText("quantity");
             }
         }
