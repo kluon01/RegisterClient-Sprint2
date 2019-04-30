@@ -7,10 +7,10 @@ public enum ProductFieldName implements FieldNameInterface {
 	LOOKUP_CODE("lookupCode"),
 	COUNT("count"),
 	SOLD("sold"),
-	COST("cost"),
+	PRICE("price"),
 	API_REQUEST_STATUS("apiRequestStatus"),
 	API_REQUEST_MESSAGE("apiRequestMessage"),
-	CREATED_ON("createdOn");
+	CREATED_ON("createdon");
 
 	private String fieldName;
 	public String getFieldName() {

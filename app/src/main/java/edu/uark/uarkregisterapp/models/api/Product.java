@@ -22,14 +22,14 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 	private int count;
 	private Date createdOn;
 	private int sold;
-	private double cost;
+	private double price;
 
 	public UUID getId() { return this.id; }
 	public String getLookupCode() { return this.lookupCode; }
 	public int getCount() { return this.count; }
 	public Date getCreatedOn() { return this.createdOn; }
 	public int getSold() { return this.sold; }
-	public double getCost() { return this.cost; }
+	public double getPrice() { return this.price; }
 
 	public Product setId(UUID id)
 	{
@@ -61,9 +61,9 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		return this;
 	}
 
-	public Product setCost(double c)
+	public Product setPrice(double c)
 	{
-		this.cost = c;
+		this.price = c;
 		return this;
 	}
 
@@ -78,7 +78,7 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		this.lookupCode = rawJsonObject.optString(ProductFieldName.LOOKUP_CODE.getFieldName());
 		this.count = rawJsonObject.optInt(ProductFieldName.COUNT.getFieldName());
 		this.sold = rawJsonObject.optInt(ProductFieldName.SOLD.getFieldName());
-		this.cost = rawJsonObject.optDouble(ProductFieldName.COST.getFieldName());
+		this.price = rawJsonObject.optDouble(ProductFieldName.PRICE.getFieldName());
 
 		value = rawJsonObject.optString(ProductFieldName.CREATED_ON.getFieldName());
 		if (!StringUtils.isBlank(value)) {
@@ -93,7 +93,8 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 	}
 
 	@Override
-	public JSONObject convertToJson() {
+	public JSONObject convertToJson()
+	{
 		JSONObject jsonObject = new JSONObject();
 
 		try {
@@ -101,7 +102,7 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 			jsonObject.put(ProductFieldName.LOOKUP_CODE.getFieldName(), this.lookupCode);
 			jsonObject.put(ProductFieldName.COUNT.getFieldName(), this.count);
 			jsonObject.put(ProductFieldName.SOLD.getFieldName(), this.sold);
-			jsonObject.put(ProductFieldName.COST.getFieldName(), this.cost);
+			jsonObject.put(ProductFieldName.PRICE.getFieldName(), this.price);
 			jsonObject.put(ProductFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -117,7 +118,7 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		this.id = new UUID(0, 0);
 		this.createdOn = new Date();
 		this.sold = 0;
-		this.cost = 0.0;
+		this.price = 0.0;
 	}
 
 	public Product(ProductTransition productTransition)
@@ -127,6 +128,6 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		this.sold = productTransition.getSold();
 		this.createdOn = productTransition.getCreatedOn();
 		this.lookupCode = productTransition.getLookupCode();
-		this.cost = productTransition.getCost();
+		this.price = productTransition.getPrice();
 	}
 }
