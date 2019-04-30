@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -61,6 +62,19 @@ public class ProductsListingActivity extends AppCompatActivity
 		super.onResume();
 
 		(new RetrieveProductsTask()).execute();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:  // Respond to the action bar's Up/Home button
+				this.finish();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private ListView getProductsListView() {

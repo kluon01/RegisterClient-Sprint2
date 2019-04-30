@@ -37,6 +37,19 @@ public class TestActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:  // Respond to the action bar's Up/Home button
+                this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void displayAllProductsButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
     }

@@ -73,6 +73,19 @@ public class ShoppingCartActivity extends AppCompatActivity
         super.onStart();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:  // Respond to the action bar's Up/Home button
+                this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void addByLookupCode(View view)
     {
         this.displayFunctionalityNotAvailableDialog();
