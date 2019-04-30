@@ -49,5 +49,5 @@
         android:layout_marginLeft="185dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@+id/textView1"
-        android:text="Items Sold" />
+        android:text="Total Sales" />
 </RelativeLayout>
