@@ -109,7 +109,8 @@ public class ProductService extends BaseRemoteService {
 		);
 	}
 
-	private ApiResponse<Product> readProductDetailsFromResponse(ApiResponse<Product> apiResponse) {
+	private ApiResponse<Product> readProductDetailsFromResponse(ApiResponse<Product> apiResponse)
+	{
 		JSONObject rawJsonObject = this.rawResponseToJSONObject(
 			apiResponse.getRawResponse()
 		);
