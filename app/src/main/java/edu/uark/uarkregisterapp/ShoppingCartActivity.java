@@ -160,7 +160,7 @@ public class ShoppingCartActivity extends AppCompatActivity
             {
                 //products.clear();
                 Product t_product = apiResponse.getData();
-                //Log.d("Product Lookup", "Success");
+                //Log.d("Product Lookup", "Success"); // For debugging
                 shoppingCart.addProduct(t_product);
                 products.add(t_product);
             }
